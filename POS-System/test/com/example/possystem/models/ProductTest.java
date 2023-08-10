@@ -10,7 +10,7 @@ class ProductTest {
     Product product;
     @BeforeEach
     void setUp() {
-        product = new Product(125, "Apple", 2.49, 1, "Canadian Farmers", 56, 256);
+        product = new Product(125, "Apple", 2.49, 1, "lb","Canadian Farmers", 56, 256);
     }
 
     @Test
@@ -27,6 +27,10 @@ class ProductTest {
 
     @Test
     void setProductWeight() {
+    }
+
+    @Test
+    void setProductWeightUnit() {
     }
 
     @Test

@@ -7,15 +7,17 @@ public class Product {
     private String productName;
     private double productPrice;
     private float productWeight;
+    private String productWeightUnit;
     private String productManufacture;
     private double quantity;
     private int categoryId;
 
-    public Product(int productId, String productName, double productPrice, float productWeight, String productManufacture, double quantity, int categoryId) {
+    public Product(int productId, String productName, double productPrice, float productWeight, String productWeightUnit, String productManufacture, double quantity, int categoryId) {
         setProductId(productId);
         setProductName(productName);
         setProductPrice(productPrice);
         setProductWeight(productWeight);
+        setProductWeightUnit(productWeightUnit);
         setProductManufacture(productManufacture);
         setQuantity(quantity);
         setCategoryId(categoryId);
@@ -106,7 +108,25 @@ public class Product {
         if(!productManufacture.trim().isBlank() && productManufacture.trim().length() > 1) {
             this.productManufacture = productManufacture;
         } else {
-            throw new IllegalArgumentException("Product Manufacture cannot be blank and should contain at lease 2 characters");
+            throw new IllegalArgumentException("Product Manufacture cannot be blank and should contain at least 2 characters");
+        }
+    }
+
+    public String getProductWeightUnit() {
+        return productWeightUnit;
+    }
+
+    /**
+     * Method validates correct measuring unit
+     * @param productWeightUnit - Max chars length 3, cannot contain numerals
+     */
+    public void setProductWeightUnit(String productWeightUnit) {
+        if(productWeightUnit.length() > 3) {
+            throw new IllegalArgumentException("Product Weigh unit cannot be more than 3 characters");
+        } else if(productWeightUnit.matches("[0-9]*")) {
+            throw new IllegalArgumentException("Product Weigh unit cannot contain numerals");
+        } else {
+            this.productWeightUnit = productWeightUnit;
         }
     }
 
