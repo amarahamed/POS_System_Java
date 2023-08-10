@@ -35,9 +35,8 @@ public class Product {
      * @param productId - contains 8 digits
      */
     public void setProductId(int productId) {
-        if(Integer.toString(productId).length() == 8 && Integer.toString(productId).matches("[^0]{7}[0-9]{8}")) {
+        if(Integer.toString(productId).length() == 8 && Integer.toString(productId).matches("[0-9]{8}")) {
             this.productId = productId;
-
         } else {
             throw new IllegalArgumentException("Product ID should have 8 digits");
         }
@@ -52,7 +51,7 @@ public class Product {
      * @param productName - should hv at least 2 characters and max 255
      */
     public void setProductName(String productName) {
-        if(productName.isBlank() && productName.length() >= 2 && productName.length() <= 255) {
+        if(!productName.isBlank() && productName.trim().length() >= 2 && productName.length() <= 255) {
             this.productName = productName;
         } else {
             throw new IllegalArgumentException("Product name should contain 2-255 characters");
@@ -68,13 +67,11 @@ public class Product {
      * @param productPrice - More than 0$ to be valid - eg: 0.1$ is valid
      */
     public void setProductPrice(double productPrice) {
-        if(productPrice > 0.0) {
+        if(productPrice > 0 && Double.toString(productPrice).matches("[0-9, .]*")) {
             this.productPrice = productPrice;
-        } else if (Double.toString(productPrice).matches("[^0-9]*")) {
-            throw new IllegalArgumentException("Product price should contain only numbers");
         }
         else {
-            throw new IllegalArgumentException("Product price should be more than 0$");
+            throw new IllegalArgumentException("Product price should be more than 0$ and contain numerals only");
         }
     }
 
@@ -87,12 +84,12 @@ public class Product {
      * @param productWeight - More than 0 to be valid - eg: 0.1g is valid
      */
     public void setProductWeight(float productWeight) {
-        if(productWeight > 0.0) {
-            this.productWeight = productWeight;
+        if(productWeight < 0.0) {
+            throw new IllegalArgumentException("Product weight should be more than 0");
         } else if (Float.toString(productWeight).matches("[^0-9]*")) {
             throw new IllegalArgumentException("Product weight should contain only numerals");
         } else {
-            throw new IllegalArgumentException("Product weight should be more than 0");
+            this.productWeight = productWeight;
         }
     }
 
